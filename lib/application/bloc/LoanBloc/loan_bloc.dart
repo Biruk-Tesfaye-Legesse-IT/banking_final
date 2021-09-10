@@ -27,6 +27,9 @@ class LoanBloc extends Bloc<LoanEvent, LoanState> {
 
         if (info != null) {
           yield LoanInfoLoaded(info: info);
+        } else if (info.toString() == 'No active loans.') {
+          print('Its here');
+          yield NoActiveLoans();
         } else {
           yield LoanInfoLoadingFailed(errorMsg: "Failed to load.");
         }

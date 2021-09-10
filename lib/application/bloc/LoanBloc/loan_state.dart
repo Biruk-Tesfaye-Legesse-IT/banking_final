@@ -13,6 +13,8 @@ class LoanInitial extends LoanState {}
 
 class LoanInfoLoading extends LoanState {}
 
+class NoActiveLoans extends LoanState {}
+
 class LoanInfoLoaded extends LoanState {
   final info;
 

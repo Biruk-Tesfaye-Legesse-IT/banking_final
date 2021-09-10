@@ -63,15 +63,21 @@ class ControlBloc extends StatelessWidget {
                   child: Column(
                     children: [
                       BankImage(),
-                      LoanInfoCard('${info.amountRemaining}',
-                          '${info.amountRemaining}', '${info.amountRemaining}'),
+                      LoanInfoCard('${info.dueDate}', '${info.amountRemaining}',
+                          '${info.amountTaken}'),
                       PasswordField(amountTextController: amountTextController),
                       SizedBox(
                         height: 20,
                       ),
-                      TopUpButton(
-                        amountTextController: amountTextController,
-                      )
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          TopUpButton(
+                            amountTextController: amountTextController,
+                          ),
+                          PayInFull(),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -120,7 +126,7 @@ class TopUpButton extends StatelessWidget {
         loanBloc
             .add(TopUpLoan(amount: double.parse(amountTextController.text)));
       },
-      child: Text("Change Password"),
+      child: Text("Top Up Loan"),
     );
   }
 }
@@ -139,8 +145,8 @@ class PasswordField extends StatelessWidget {
       obscureText: true,
       controller: amountTextController,
       decoration: InputDecoration(
-        icon: Icon(Icons.password),
-        hintText: "New Password",
+        icon: Icon(Icons.attach_money),
+        hintText: "Amount",
       ),
     );
   }
@@ -153,13 +159,16 @@ class PayInFull extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        final authBloc = BlocProvider.of<LoanBloc>(context);
+    return Container(
+      alignment: Alignment.bottomCenter,
+      child: ElevatedButton(
+        onPressed: () {
+          final authBloc = BlocProvider.of<LoanBloc>(context);
 
-        authBloc.add(PayLoanInfull());
-      },
-      child: Text("Change Password"),
+          authBloc.add(PayLoanInfull());
+        },
+        child: Text("Pay Loan In Full"),
+      ),
     );
   }
 }
@@ -190,7 +199,7 @@ class LoanInfoCard extends StatelessWidget {
                     children: [
                       ListTile(
                         title: Text(
-                          'Name: ',
+                          'Amount Taken: ',
                           style: TextStyle(
                               color: Colors.cyanAccent,
                               fontSize: 20,
@@ -206,7 +215,7 @@ class LoanInfoCard extends StatelessWidget {
                       ),
                       ListTile(
                         title: Text(
-                          'Email ',
+                          'Amount Remaining ',
                           style: TextStyle(
                               color: Colors.cyanAccent,
                               fontSize: 20,
@@ -222,7 +231,7 @@ class LoanInfoCard extends StatelessWidget {
                       ),
                       ListTile(
                         title: Text(
-                          'Account Number ',
+                          'Due date: ',
                           style: TextStyle(
                               color: Colors.cyanAccent,
                               fontSize: 20,
@@ -232,7 +241,7 @@ class LoanInfoCard extends StatelessWidget {
                           this.accNum,
                           style: TextStyle(
                               color: Colors.yellowAccent,
-                              fontSize: 20,
+                              fontSize: 14,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
