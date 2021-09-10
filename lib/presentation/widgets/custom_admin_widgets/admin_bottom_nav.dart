@@ -18,10 +18,10 @@ class AdminBottomNavigation extends StatelessWidget {
         //   icon: Icon(Icons.payment_rounded),
         //   label: 'Manage Loan',
         // ),
-        // BottomNavigationBarItem(
-        //   icon: Icon(Icons.bookmark),
-        //   label: 'Saved Accounts',
-        // ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.pending_actions_sharp),
+          label: 'Report',
+        ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person),
           label: 'My Profile',

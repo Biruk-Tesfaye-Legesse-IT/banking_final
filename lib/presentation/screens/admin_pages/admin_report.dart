@@ -3,7 +3,7 @@ import 'package:mobile_banking/presentation/widgets/bank_name.dart';
 import 'package:mobile_banking/application/bloc/AuthBloc/auth_bloc.dart';
 import 'package:mobile_banking/insfrastructure/repository/auth/accountRepository.dart';
 import 'package:mobile_banking/insfrastructure/data_provider/auth/accountProvider.dart';
-import 'package:mobile_banking/presentation/widgets/custom_agent_widgets/agent_menu.dart';
+import 'package:mobile_banking/presentation/widgets/custom_admin_widgets/admin_menu.dart';
 import 'package:mobile_banking/presentation/widgets/custom_client_widgets/client_menu.dart';
 import 'package:mobile_banking/presentation/widgets/info_card.dart';
 // import 'package:mobile_banking/presentation/widgets/menu_card_layout.dart';
@@ -13,8 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
-class RequestPay extends StatelessWidget {
-  RequestPay({Key? key}) : super(key: key);
+class AdminReport extends StatelessWidget {
+  AdminReport({Key? key}) : super(key: key);
 
   final repo = AccountRepository(
       dataProvider: AccountDataProvider(httpClient: http.Client()));
@@ -42,9 +42,9 @@ class RequestPay extends StatelessWidget {
                       children: [
                         BankName(),
                         NameCard('${user.fullName}', '${user.role}'),
-                        InfoCard('Corporate', '${user.accountNumber}',
-                            '\$${user.budget}'),
-                        AgentMenuLayout(),
+                        InfoCard('Central Budget', 'A${user.accountNumber}',
+                            '\$${user.bankBudget}'),
+                        AdminMenuLayout(),
                       ],
                     ),
                   ),
@@ -59,35 +59,3 @@ class RequestPay extends StatelessWidget {
     );
   }
 }
-
-
-
-// class AccountNumber extends StatelessWidget {
-//   const AccountNumber({
-//     Key? key,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Text(
-//       "1000 000 000",
-//       style: TextStyle(
-//           color: Colors.grey[800], fontWeight: FontWeight.bold, fontSize: 15),
-//     );
-//   }
-// }
-
-// class AccountName extends StatelessWidget {
-//   const AccountName({
-//     Key? key,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Text(
-//       "Pauline Fischer",
-//       style: TextStyle(
-//           color: Colors.grey[800], fontWeight: FontWeight.bold, fontSize: 20),
-//     );
-//   }
-// }
