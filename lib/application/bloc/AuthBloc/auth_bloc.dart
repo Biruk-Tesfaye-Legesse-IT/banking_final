@@ -99,6 +99,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         var proccess = await accountRepository.changeAccountType(
             event.accountNumber, event.accountType);
+
         yield ProccessFinished(message: proccess);
       } catch (error) {
         ProccessFailed(error: error.toString());

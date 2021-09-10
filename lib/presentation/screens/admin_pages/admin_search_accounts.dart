@@ -1,7 +1,8 @@
 import 'package:mobile_banking/application/bloc/AuthBloc/auth_bloc.dart';
 
 import 'package:mobile_banking/insfrastructure/insfrastructure.dart';
-import 'package:mobile_banking/presentation/screens/admin_pages/admin_manage_accounts.dart';
+import 'package:mobile_banking/presentation/screens/admin_pages/admin_client_manage_accounts.dart';
+import 'package:mobile_banking/presentation/screens/admin_pages/admin_agent_manage_accounts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -25,6 +26,7 @@ class AdminSearchUser extends StatelessWidget {
     return BlocProvider(
       create: (context) => AuthBloc(accountRepository: repo),
       child: Scaffold(
+        appBar: AppBar(),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Container(
@@ -76,11 +78,21 @@ class StateCheckBloc extends StatelessWidget {
         }
 
         if (authState is AccountLoaded) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => AdminManageAccount(user: authState.user)),
-          );
+          if (authState.user.role == 'client') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      AdminClientManageAccount(user: authState.user)),
+            );
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      AdminAgentManageAccount(user: authState.user)),
+            );
+          }
         }
 
         if (authState is AccountFailed) {
