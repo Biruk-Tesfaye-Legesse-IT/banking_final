@@ -15,17 +15,17 @@ class AgentBottomNavigation extends StatelessWidget {
           label: 'Dashboard',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.bookmark),
-          label: 'Saved Accounts',
+          icon: Icon(Icons.person),
+          label: 'Profile',
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
-          label: 'Settings',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
-          label: 'Settings',
-        ),
+        // BottomNavigationBarItem(
+        //   icon: Icon(Icons.settings),
+        //   label: 'Settings',
+        // ),
+        // BottomNavigationBarItem(
+        //   icon: Icon(Icons.person),
+        //   label: 'Profile',
+        // ),
       ],
       elevation: 10,
       currentIndex: selectedIndex,

@@ -1,7 +1,9 @@
 import 'package:mobile_banking/presentation/screens/admin_pages/admin_home.dart';
+import 'package:mobile_banking/presentation/screens/admin_pages/admin_report.dart';
 import 'package:mobile_banking/presentation/screens/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_banking/presentation/screens/saved_accounts.dart';
+import 'package:mobile_banking/presentation/widgets/custom_admin_widgets/admin_bottom_nav.dart';
 import 'package:mobile_banking/presentation/widgets/custom_client_widgets/client_bottom_nav.dart';
 import 'package:flutter/services.dart';
 
@@ -36,8 +38,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   //     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
     AdminHomePage(),
-    SavedAccounts(),
-    ProfilePage(),
+    AdminReport(),
     ProfilePage(),
   ];
 
@@ -69,7 +70,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   caption: new TextStyle(
                       color: Colors
                           .yellow))), // sets the inactive color of the `BottomNavigationBar`
-          child: ClientBottomNavigation(
+          child: AdminBottomNavigation(
             selectedIndex: _selectedIndex,
             onTap: _onItemTapped,
           ),

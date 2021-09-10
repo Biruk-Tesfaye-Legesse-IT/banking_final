@@ -1,9 +1,11 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobile_banking/application/bloc/AuthBloc/auth_bloc.dart';
 import 'package:mobile_banking/application/bloc/LoanBloc/loan_bloc.dart';
 import 'package:mobile_banking/insfrastructure/insfrastructure.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobile_banking/presentation/screens/client_pages/client_pages_frame.dart';
 
 class ManageLoan extends StatelessWidget {
   ManageLoan({Key? key}) : super(key: key);
@@ -37,20 +39,41 @@ class ControlBloc extends StatelessWidget {
         if (state is LoanInfoLoading) {
           CircularProgressIndicator();
         }
+
         if (state is TopUpLoanProcessing) {
           SnackBar(content: Text('Loan topup is processing...'));
         }
         if (state is TopUpLoanSuccess) {
-          final snackBar = SnackBar(
-            content: Text(state.message),
-            duration: Duration(seconds: 1),
+          Fluttertoast.showToast(
+              msg: state.message,
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ClientDashboard()),
           );
 
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          // final snackBar = SnackBar(
+          //   content: Text(state.message),
+          //   duration: Duration(seconds: 1),
+          // );
 
-          amountTextController.clear();
+          // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+          // amountTextController.clear();
         }
       }, builder: (context, state) {
+        if (state is LoanInfoLoadingFailed) {
+          print('Thissssssssssssssssssssssssssssssssssssss');
+          return Center(child: Text('No Active Loans.'));
+
+          // return Center(child: Text(state.errorMsg));
+        }
         if (state is LoanInfoLoaded) {
           var info = state.info;
           return Scaffold(
@@ -85,7 +108,7 @@ class ControlBloc extends StatelessWidget {
             ),
           );
         } else {
-          return Center();
+          return ClientDashboard();
         }
       }),
     );
